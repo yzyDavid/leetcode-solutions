@@ -38,10 +38,11 @@
  * 
  * 
  */
-#include <vector>
-#include <algoithm>
 
-using namespace std;
+#include <vector>
+#include <algorithm>
+
+using std::vector;
 
 class Solution
 {
@@ -49,5 +50,26 @@ class Solution
     int arrayNesting(vector<int> &nums)
     {
         int l = nums.size();
+        int i, j;
+        int max = 0;
+        vector<bool> flags(l, false);
+        for (i = 0; i < l; ++i)
+        {
+            if (flags[i])
+            {
+                continue;
+            }
+            int n = 1;
+            int x = nums[i];
+            flags[i] = true;
+            while (x != i)
+            {
+                x = nums[x];
+                flags[x] = true;
+                ++n;
+            }
+            max = std::max(max, n);
+        }
+        return max;
     }
 };
